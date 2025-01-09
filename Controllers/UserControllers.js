@@ -9,7 +9,7 @@ import bcrypt from 'bcrypt'
  
  export function postUser(req,res){
 
-    const user =req.body
+const user =req.body
 
 const password = req.body.password
 const passwordHash = bcrypt.hashSync(password,10);
@@ -27,7 +27,7 @@ user.password =passwordHash
     ).catch(
        ()=>{
         res.json({
-            message : "user create failde"
+            message : "user create faild"
         })
        } 
     )
