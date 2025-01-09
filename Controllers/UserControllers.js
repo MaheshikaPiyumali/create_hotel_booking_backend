@@ -6,24 +6,13 @@ import bcrypt from 'bcrypt'
 
 
 
- /*export function getUser(req,res){
-    User.find().then(
-        (userList)=>{
-            res.json({
-                list :userList
-            })
-        }
-
-    )
-    
-}*/
-
+ 
  export function postUser(req,res){
 
     const user =req.body
 
 const password = req.body.password
-const passwordHash = bcrypt.hashSync(password,"");
+const passwordHash = bcrypt.hashSync(password,10);
 user.password =passwordHash
 
     const newUser =new User(user)

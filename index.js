@@ -25,10 +25,11 @@ mongoose.connect(connectionString).then(
 app.use((req,res,next)=>{
     const token = req.header("Authorization")?.replace("Bearer","")
 if(token != null){
-    jwt.verify(token,"secret",(err,decoded)=>{
+    jwt.verify(token,"secret",
+        (err,decoded)=>{
         if(decoded !=null){
-            req.user = decoded
-            console.log(decoded)
+            req.body.user = decoded
+           // console.log(decoded)
             next()
         }else{
             next()
