@@ -6,13 +6,17 @@ import mongoose from 'mongoose';
 import gallaryRouter from './Routes/GallaryRouter.js';
 import jwt from 'jsonwebtoken'
 import categoryRouter from './Routes/CategoryRouter.js';
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express();
 app.use(bodyparser.json())
 
 
 //MongoDB string ekaking conection eka
-const connectionString ="mongodb+srv://Admin3:1999@cluster0.p7zq0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const connectionString = process.env.MONGO_URL
+
 
 
 
@@ -20,7 +24,7 @@ const connectionString ="mongodb+srv://Admin3:1999@cluster0.p7zq0.mongodb.net/?r
 app.use((req,res,next)=>{
     const token = req.header("Authorization")?.replace("Bearer","")
 if(token != null){
-    jwt.verify(token,"secret",(err,decoded)=>{
+    jwt.verify(token,process.env.JWT_KEY,(err,decoded)=>{
         if(decoded !=null){
             req.user = decoded;
            // console.log(decoded)
