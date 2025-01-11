@@ -2,22 +2,22 @@ import GallaryItems from "../model/GallaryEvent.js"
 
 export function postGallaryItem(req,res){
 
-    const user =req.body.user
+    const user =req.user
     if(user == null){
         res.status(403).json({
             message :"please login to create gallary  items"
         })
         return
     }
-   /* if(user?.type !="admin"){
+    if(user.type !="admin"){
         res.status(403).json({
             message : "you do not have permission to create a gallary item"
         })
         return
-    }*/
+    }
 
 
-    const gallaryItem = req.body.item
+    const gallaryItem = req.body
     const newGallaryItem = new GallaryItems (gallaryItem)
 
     newGallaryItem.save().then(
