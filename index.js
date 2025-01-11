@@ -5,6 +5,7 @@ import userRouter from './Routes/UseRouter.js';
 import mongoose from 'mongoose';
 import gallaryRouter from './Routes/GallaryRouter.js';
 import jwt from 'jsonwebtoken'
+import categoryRouter from './Routes/CategoryRouter.js';
 
 const app = express();
 app.use(bodyparser.json())
@@ -53,6 +54,7 @@ mongoose.connect(connectionString).then(
 
 app.use("/api/users",userRouter)
 app.use("/api/gallery",gallaryRouter)
+app.use("/api/category",categoryRouter)
 
 
 
