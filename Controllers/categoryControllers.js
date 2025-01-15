@@ -1,49 +1,22 @@
-import categritems from "../model/category.js";
-/*export function postCategory(req,res){
-    if(req.user == null){
-        res.status(403).json({
-            message :"Unauthorized"
-        })
-        return
+import Category from "../model/category.js";
 
+import {isAdminValid} from "../Controllers/UserControllers.js"
+
+  // Correct import statement
+
+// Function to create a category
+export function postCategory(req, res) {
+    if (!req.user) {
+        return res.status(403).json({ message: "Unauthorized" });
     }
-    if(req.user.type !="admin"){
-        res.status(403).json({
-            message :"forbidden"
 
-        });
-        return;
+    if (req.user.type !== "admin") {
+        return res.status(403).json({ message: "Forbidden: Admin access required" });
     }
-    const newCategory = new Category(req.body)
-    newCategory.save().then(
-        (result)=>{
-            res.json({
-                message :"Category created successfully",
-                result :result
-            })
-        }
-    ).catch(
-        (err)=>{
-            res.json({
-                message : "Category creation failed",
-                error :err
-            })
-        }
-    )
 
- }*/
-    export function postCategory(req, res) {
-        if (!req.user) {
-            return res.status(403).json({ message: "Unauthorized" });
-        }
-        
-        if (req.user.type !== "admin") {
-            return res.status(403).json({ message: "Forbidden: Admin access required" });
-        }
-    
-        const newCategory = new categritems(req.body);
-    
-        newCategory.save()
+    const newCategory = new Category(req.body);  // Corrected usage of 'Category'
+
+    newCategory.save()
         .then((result) => {
             res.json({
                 message: "Category created successfully",
@@ -57,5 +30,21 @@ import categritems from "../model/category.js";
                 error: err.message // Send readable error message
             });
         });
-    }
-   
+}
+
+   //get cattegory
+   export function getCategory(req, res) {
+    Category.find()
+        .then((categories) => {
+            res.json({
+                message: "Categories retrieved successfully",
+                categories: categories
+            });
+        })
+        .catch((error) => {
+            res.status(500).json({
+                message: "Failed to retrieve categories",
+                error: error.message
+            });
+        });
+}

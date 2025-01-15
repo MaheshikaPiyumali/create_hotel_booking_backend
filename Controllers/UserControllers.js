@@ -79,3 +79,39 @@ export function LoginUser(req, res) {
     });
 }
 
+export function getAllUsers(req, res) {
+    User.find()
+        .then((users) => {
+            res.json({
+                message: "Users retrieved successfully",
+                users: users
+            });
+        })
+        .catch((error) => {
+            res.status(500).json({
+                message: "Failed to retrieve users",
+                error: error.message
+            });
+        });
+}
+
+export function isAdminValid(req) {
+    if (req.user == null) {
+      return false;
+    }
+    if (req.user.type != "admin") {
+      return false;
+    }
+    return true;
+  }
+  export function isCustomerValid(req) {
+    if (req.user == null) {
+      return false;
+    }
+    console.log(req.user);
+    if (req.user.type != "customer") {
+      return false;
+    }
+  
+    return true;
+  } 

@@ -21,8 +21,8 @@ const connectionString = process.env.MONGO_URL
 
 
 //midleware create
-app.use((req,res,next)=>{
-    const token = req.header("Authorization")?.replace("Bearer","")
+/*app.use((req,res,next)=>{
+    const token = req.header("Authorization")?.replace("Bearer","");
 if(token != null){
     jwt.verify(token,process.env.JWT_KEY,(err,decoded)=>{
         if(decoded !=null){
@@ -38,7 +38,25 @@ if(token != null){
     next();
 }
 
+});*/
+app.use((req, res, next) => {
+    const token = req.header("Authorization")?.replace("Bearer ", "");
+
+    if (!token) {
+        return next(); // No token, proceed without authentication
+    }
+
+    jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+        if (err) {
+            console.error("JWT Verification Error:", err.message);
+            return next(); // Invalid token, proceed without authentication
+        }
+
+        req.user = decoded; // Attach decoded user data to req
+        next();
+    });
 });
+
 
 // conection eka true or fales
 

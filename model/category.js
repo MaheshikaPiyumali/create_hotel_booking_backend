@@ -1,29 +1,18 @@
 import mongoose from "mongoose";
 
-const CategorySchema = mongoose.Schema({
-    name:{
-        type : String,
-        required : true,
-        unique :true
-    },
-    description :{
-        type : String,
-        required : true
-    },
-    Price :{
-        type :Number,
-        requied :true
-    },
-    image:{
-        type : String,
-        required : true
-    },
-    features :[{
-        type :String,
-    }]
 
 
-})
+const categorySchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+});
 
-const categritems = mongoose.model("categritems",CategorySchema)
-export default categritems;
+const Category = mongoose.model('Category', categorySchema);
+
+export default Category;
