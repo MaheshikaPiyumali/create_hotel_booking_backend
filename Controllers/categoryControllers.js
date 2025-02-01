@@ -1,5 +1,5 @@
 import Category from "../model/category.js";
-import { isAdminValid } from "../Controllers/UserControllers.js";
+//import { isAdminValid } from "../Controllers/UserControllers.js";
 
 // Function to create a category with proper error handling
 export async function postCategory(req, res) {
@@ -120,3 +120,38 @@ export  function getCategoryByName(req,res) {
 
     )
 }
+//update category
+export function UpdateCategory(req, res) {
+    if (!isAdminValid(req)) {
+        res.status(404).json({
+            message: "Unauthorized"
+        });
+        return;
+    }
+
+    const name = req.params.name;
+
+    Category.updateOne({ name: name }, req.body)
+        .then(() => {
+            res.json({
+                message: "Category updated successfully"
+            });
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: "Failed to update category",
+                error: err.message
+            });
+        });
+}
+
+
+export function isAdminValid(req) {
+    if (req.user == null) {
+      return false;
+    }
+    if (req.user.type != "admin") {
+      return false;
+    }
+    return true;
+  }
