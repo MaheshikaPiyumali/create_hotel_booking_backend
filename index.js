@@ -7,6 +7,7 @@ import gallaryRouter from './Routes/GallaryRouter.js';
 import jwt from 'jsonwebtoken'
 import categoryRouter from './Routes/CategoryRouter.js';
 import dotenv from 'dotenv'
+import  RoomRouter from './Routes/RoomRouter.js';
 
 dotenv.config()
 
@@ -77,7 +78,7 @@ mongoose.connect(connectionString).then(
 app.use("/api/users",userRouter)
 app.use("/api/gallery",gallaryRouter)
 app.use("/api/category",categoryRouter)
-
+app.use("/api/room",RoomRouter)
 
 
 app.listen(5000,()=>{

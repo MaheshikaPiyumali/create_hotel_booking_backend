@@ -1,5 +1,5 @@
 import Category from "../model/category.js";
-//import { isAdminValid } from "../Controllers/UserControllers.js";
+import { isAdminValid } from "../Controllers/UserControllers.js";
 
 // Function to create a category with proper error handling
 export async function postCategory(req, res) {
@@ -146,12 +146,3 @@ export function UpdateCategory(req, res) {
 }
 
 
-export function isAdminValid(req) {
-    if (req.user == null) {
-      return false;
-    }
-    if (req.user.type != "admin") {
-      return false;
-    }
-    return true;
-  }

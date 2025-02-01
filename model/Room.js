@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Category from "./category";
+import Category from "../model/category.js"
 const RoomsSchema = new mongoose.Schema({
     RoomId :{
         type :Number,
