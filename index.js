@@ -12,7 +12,8 @@ import  RoomRouter from './Routes/RoomRouter.js';
 dotenv.config()
 
 const app = express();
-app.use(bodyparser.json())
+//app.use(bodyparser.json())
+//app.use(express.json());
 
 
 //MongoDB string ekaking conection eka

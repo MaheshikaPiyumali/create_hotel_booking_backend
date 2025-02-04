@@ -3,12 +3,26 @@ import {isAdminValid} from "../Controllers/UserControllers.js";
 import Category from "../model/category.js";
 
 export function CreateRoom(req,res){
+  
+
+
         if(!isAdminValid(req)){
             res.json({
                 message : "Forbidden"
             })
             return
         }
+
+       /* const { RoomId, Category } = req.body;
+
+        if (!RoomId || !Category) {
+            return res.status(400).json({ message: 'RoomId and category are required' });
+        }*/
+
+
+
+
+
 
     const newRoom = new rooms(req.body)
     newRoom.save().then(
@@ -35,8 +49,9 @@ export function deleteRoom(req,res){
         })
         return
     }
-    const roomId = req.params.roomId
-    rooms.findOneAndDelete({roomId :roomId}).then(
+    
+    const roomId = req.params.roomId;
+    rooms.findOneAndDelete({RoomId :roomId}).then(
        ()=>{
         res.json({
             message :"Room Delete successfully"
@@ -50,6 +65,11 @@ export function deleteRoom(req,res){
         }
     )
 }
+
+
+
+  
+
 export function findRoomId(req,res){
     const roomId = req.body.roomId
 
